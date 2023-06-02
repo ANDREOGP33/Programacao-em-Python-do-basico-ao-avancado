@@ -13,5 +13,3 @@ elif 40000 > valor_venda >= 20000:
 elif 20000 > valor_venda:
     print(f"Comissão: {400 + ((0.14* valor_venda) + valor_venda)}")
 
-
-     
