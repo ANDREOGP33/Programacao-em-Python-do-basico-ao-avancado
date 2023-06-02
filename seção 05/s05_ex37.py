@@ -1,59 +1,28 @@
-hora_chegada = int(input("Digite a hora de chegada: "))
-minuto_chegada = int(input("Digite o minuto de chegada: "))
-hora_saida = int(input("Digite a hora de saida: "))
-minuto_saida = int(input("Digite o minuto de saida: "))
+def calcular_preco(chegada, partida):
+    hora_chegada, minuto_chegada = chegada
+    hora_partida, minuto_partida = partida
 
-total_minutos_chegada = (hora_chegada * 60) + minuto_chegada
-total_minutos_saida = (hora_saida * 60) + minuto_saida
+    if hora_partida < hora_chegada or (hora_partida == hora_chegada and minuto_partida < minuto_chegada):
+        hora_partida += 24
 
-if hora_chegada < hora_saida:
-    tempo_estacionado = total_minutos_saida - total_minutos_chegada
-elif hora_chegada > hora_saida:
-    tempo_estacionado = 1440 + total_minutos_chegada - total_minutos_saida
+    diferenca = (hora_partida - hora_chegada) * 60 + (minuto_partida - minuto_chegada)
 
-print(tempo_estacionado)
-valor = 0
+    preco = 0
 
-if hora_saida < hora_chegada:
-    valor = 48
-    hora_m24 = hora_chegada - hora_saida
-    minuto_m24 = hora_m24 * 60
+    if diferenca <= 60:
+        preco = 1
+    elif diferenca <= 180:
+        preco = 1 + ((diferenca - 60) // 60 + 1) * 0.4
+    else:
+        preco = 1 + 2 * 0.4 + ((diferenca - 180) // 60 + 1) * 2
 
-    if tempo_estacionado % 60 == 0:
-        hora = tempo_estacionado // 60
-        valor = valor + (hora * 2)
-        print(valor)
+    return preco
 
-    elif tempo_estacionado % 60 != 0:
-        hora = tempo_estacionado // 60
-        valor = 2
-        valor = valor + (hora * 2)
-        print(valor)
+chegada_hora = int(input("Digite a hora de chegada: "))
+chegada_minuto = int(input("Digite o minuto de chegada: "))
+partida_hora = int(input("Digite a hora de partida: "))
+partida_minuto = int(input("Digite o minuto de partida: "))
 
-elif 60 >= tempo_estacionado:
-    valor = valor + 1
-    print(valor)
-    print(tempo_estacionado)
+preco_total = calcular_preco((chegada_hora, chegada_minuto), (partida_hora, partida_minuto))
 
-elif 60 < tempo_estacionado <= 120:
-    valor = valor + 2
-    print(valor)
-
-elif 120 < tempo_estacionado <= 180:
-    valor = valor + 1.40
-    print(valor)
-
-    if 120 < tempo_estacionado <= 240:
-        valor = valor + 2.80
-
-elif 300 <= tempo_estacionado:
-    if tempo_estacionado % 60 == 0:
-        hora = tempo_estacionado // 60
-        valor = valor + (hora * 2)
-        print(valor)
-
-    elif tempo_estacionado % 60 != 0:
-        hora = tempo_estacionado // 60
-        valor = 2
-        valor = valor + (hora * 2)
-        print(valor)
+print(f"Preço cobrado: R$ {preco_total:.2f}")
