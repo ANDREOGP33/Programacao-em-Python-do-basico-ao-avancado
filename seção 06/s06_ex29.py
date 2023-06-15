@@ -1,2 +1,2 @@
-escreva um programa para calcular  valor da serie, para 5 termos.
-s = 0 + 1/2! + 2/4! + 3/6! ...
+s = 1/2 * 5
+print(s)
