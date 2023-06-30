@@ -32,3 +32,4 @@ for palavra in caracteres:
     quantidade_caracteres += len(palavra)
 
 print("Quantidade de caracteres:", quantidade_caracteres)
+
