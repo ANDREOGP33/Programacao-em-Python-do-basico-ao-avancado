@@ -12,3 +12,4 @@ for i in range(0, 6):
         vetor.append(valor)
 
 print(vetor)
+
